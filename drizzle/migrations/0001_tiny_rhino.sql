@@ -1,0 +1,1 @@
+ALTER TABLE "aiOutput" ADD COLUMN "updatedAt" varchar;
