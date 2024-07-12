@@ -25,10 +25,14 @@ export interface HISTORY {
 const History = async () => {
     const user = await currentUser();
 
-    //   @ts-ignore
-    const HistoryList: HISTORY[] = await db.select().from(AIOutput)
-        .where(eq(AIOutput.createdBy, user?.primaryEmailAddress?.emailAddress))
-        .orderBy(desc(AIOutput.id));
+    // @ts-ignore
+    const email = user?.primaryEmailAddress.emailAddress;
+    
+    // Use type assertion to bypass TS errors
+    // @ts-ignore
+  const HistoryList: HISTORY[] = await db.select().from(AIOutput)
+    .where(eq(AIOutput.createdBy as unknown as any, email))
+    .orderBy(desc(AIOutput.createdAt as unknown as any));
 
     const GetTemplate = (slug: string) => {
         const template: TEMPLATE | any = Templates?.find((item) => item.slug === slug);
