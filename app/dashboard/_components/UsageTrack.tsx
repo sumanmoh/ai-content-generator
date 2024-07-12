@@ -21,6 +21,7 @@ function UsageTrack() {
   const GetData = async (email: string) => {
     try {
       // Explicitly asserting the type of `createdBy` to ensure compatibility
+    //   @ts-ignore
       const result: HISTORY[] = await db.select().from(AIOutput)
         .where(eq(AIOutput.createdBy as unknown as any, email));
 
